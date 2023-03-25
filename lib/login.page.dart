@@ -1,3 +1,5 @@
+// import 'dart:ffi';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'register.page.dart';
 
@@ -8,13 +10,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var _formKey = GlobalKey<FormState>;
-  var _email = "";
-  var _password = "";
+  var _email = TextEditingController();
+  final _password = TextEditingController();
+
+  Future signIn() async {
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email.text.trim(), password: _password.text.trim()
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFECD2F8),
+      backgroundColor: const Color(0xFFECD2F8),
       body: Container(
           margin: const EdgeInsets.all(20),
           child: Form(
@@ -26,11 +41,10 @@ class _LoginPageState extends State<LoginPage> {
                   width: 295,
                   height: 63,
                   child: TextFormField(
+                      controller: _email,
                       keyboardType: TextInputType.emailAddress,
-                      key: ValueKey("email"),
-                      onSaved: (value) {
-                        _email = value!;
-                      },
+                      key: const ValueKey("email"),
+
                       // validator: (value){
                       //   if(value.isEmpty || !value.contains("@"))
                       // },
@@ -38,74 +52,75 @@ class _LoginPageState extends State<LoginPage> {
                         fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20)),
                         hintText: "Email",
-                        suffixIcon: Icon(Icons.email, color: Colors.black),
+                        suffixIcon:
+                            const Icon(Icons.email, color: Colors.black),
                       ))),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   width: 295,
                   height: 63,
                   child: TextFormField(
-                    obscureText: true,
-                    key: ValueKey("password"),
-                    onSaved: (value) {
-                        _email = value!;
-                      },
+                      controller: _password,
+                      obscureText: true,
+                      key: const ValueKey("password"),
                       decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 130, 48, 48)),
-                        borderRadius: BorderRadius.circular(20)),
-                    hintText: "password",
-                    suffixIcon: Icon(Icons.lock, color: Colors.black),
-                  ))),
-              SizedBox(
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 130, 48, 48)),
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "password",
+                        suffixIcon: const Icon(Icons.lock, color: Colors.black),
+                      ))),
+              const SizedBox(
                 height: 40,
               ),
-              Container(
+              SizedBox(
+                  width: 212,
+                  height: 48,
+                  child: GestureDetector(
+                    child: TextButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          )),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color(0xFFC853FF)),
+                        ),
+                        onPressed: () {
+                          signIn;
+                        },
+                        child: const Text("SignIn")),
+                  )),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text("or"),
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
                   width: 212,
                   height: 48,
                   child: TextButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        )),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFFC853FF)),
-                      ),
-                      onPressed: (
-
-                      ) {},
-                      child: Text("SignIn"))),
-              SizedBox(
-                height: 15,
-              ),
-              Text("or"),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                  width: 212,
-                  height: 48,
-                  child: TextButton(
-                      onPressed: (
-                        
-                      ) {
-                        Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()));
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterPage()));
                       },
-                      child: Text("Register"),
+                      child: const Text("Register"),
                       style: ButtonStyle(
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -114,22 +129,24 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFFC853FF)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFFC853FF)),
                       ))),
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
-
               Container(
                 child: Row(
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
-                    Text(
+                    const Text(
                       "sign up with ",
                       selectionColor: Color(0xFF525151),
                     ),
-                    Text("Google Account",
-                    selectionColor: Color.fromARGB(255, 2, 42, 75),)
+                    const Text(
+                      "Google Account",
+                      selectionColor: Color.fromARGB(255, 2, 42, 75),
+                    )
                   ],
                 ),
               )

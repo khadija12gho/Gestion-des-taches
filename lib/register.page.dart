@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -7,118 +8,141 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _formKey = GlobalKey<FormState>;
-  final _name = "";
-  var _prenom = "";
-  final _email = "";
-  final _password = "";
+  final _nom = TextEditingController();
+  final _prenom = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final _ConfirmPW = TextEditingController();
 
-  // startRegister() {
-  //   var currentState;
-  //   final validity = _formKey.currentState.validate();
-  //   FocusScope.of(context).unfocus();
-  //   if (validity) {
-  //     _formKey.currentState.save();
-  //   }
-  // }
+  Future Register() async {
+    if (passwordConfirmed()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email.text.trim(), password: _password.text.trim());
+      Navigator.of(context).pushNamed("Auth");
+    }
+  }
 
-  // submitform(String name,String prenom, String email,String password ) async {
-  //   final auth = FirebaseAuth.instance;
-  // }
+  bool passwordConfirmed() {
+    if (_password.text.trim() == _ConfirmPW.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nom.dispose();
+    _prenom.dispose();
+    _email.dispose();
+    _password.dispose();
+    _ConfirmPW.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFECD2F8),
+      backgroundColor: const Color(0xFFECD2F8),
       body: ListView(
         children: [
           Container(
             width: 329.0,
             height: 648.0,
-            color: Color(0xFFE3B2FB),
-            padding: EdgeInsets.all(50),
-            margin: EdgeInsets.all(50),
+            color: const Color(0xFFE3B2FB),
+            padding: const EdgeInsets.all(50),
+            margin: const EdgeInsets.all(50),
             child: Form(
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                       width: 278,
                       height: 48,
                       child: TextFormField(
+                          controller: _prenom,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20)),
                             hintText: "Prenom :",
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Container(
+                  SizedBox(
                       width: 278,
                       height: 48,
                       child: TextFormField(
+                          controller: _nom,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20)),
                             hintText: "Nom :",
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Container(
+                  SizedBox(
                       width: 278,
                       height: 48,
                       child: TextFormField(
+                          controller: _email,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20)),
                             hintText: "Email or Phone number :",
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Container(
+                  SizedBox(
                       width: 278,
                       height: 48,
                       child: TextFormField(
+                          controller: _password,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20)),
                             hintText: "Password :",
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Container(
+                  SizedBox(
                       width: 278,
                       height: 48,
                       child: TextFormField(
+                          controller: _ConfirmPW,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20)),
                             hintText: "Confirm password :",
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   ),
                   Row(children: [
@@ -138,12 +162,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Colors.white),
                             ),
                             onPressed: () {},
-                            child: Text("Annuler",
+                            child: const Text("Annuler",
                                 style: TextStyle(color: Colors.black)))),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
-                    Container(
+                    SizedBox(
                         width: 109,
                         height: 48,
                         child: TextButton(
@@ -154,12 +178,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderRadius: BorderRadius.circular(100),
                               )),
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xFFC853FF)),
+                                  const Color(0xFFC853FF)),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xFFC853FF)),
+                                  const Color(0xFFC853FF)),
                             ),
                             onPressed: () {},
-                            child: Text("OK",
+                            child: const Text("OK",
                                 style: TextStyle(color: Colors.white)))),
                   ])
                 ],

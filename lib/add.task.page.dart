@@ -19,34 +19,34 @@ class _AddTaskPageState extends State<AddTaskPage> {
         appBar: AppBar(
           actions: <Widget>[
             Padding(
-                padding: EdgeInsets.only(right: 20.0),
+                padding: const EdgeInsets.only(right: 20.0),
                 child: TextButton(
                     onPressed: () {},
-                    child: Text("Save",
+                    child: const Text("Save",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold))))
           ],
-          backgroundColor: Color(0xFFC853FF),
-          title: Text("tasks"),
+          backgroundColor: const Color(0xFFC853FF),
+          title: const Text("tasks"),
         ),
         body: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(children: [
-              Container(
+              SizedBox(
                 child: TextField(
                   controller: titleController,
-                  decoration: InputDecoration(labelText: "Enter title"),
+                  decoration: const InputDecoration(labelText: "Enter title"),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 child: TextField(
                   controller: taskController,
-                  decoration: InputDecoration(labelText: "Enter task"),
+                  decoration: const InputDecoration(labelText: "Enter task"),
                 ),
               ),
             ])));

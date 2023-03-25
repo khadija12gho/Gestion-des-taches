@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:stage/home.page.dart';
+import 'package:stage/auth.dart';
+// import 'package:stage/home.page.dart';
 import 'package:stage/login.page.dart';
-import 'archive.page.dart';
-import 'register.page.dart';
-import 'todo.page.dart';
-import 'Settings.page.dart';
-import 'add.task.page.dart';
+// import 'archive.page.dart';
+// import 'register.page.dart';
+// import 'todo.page.dart';
+// import 'Settings.page.dart';
+// import 'add.task.page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +24,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: LoginPage(),
+      home: const Auth(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        "Auth":(context) => const Auth(),
+        
+      },
     );
   }
 }
