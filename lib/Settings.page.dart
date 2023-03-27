@@ -1,7 +1,41 @@
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+class SettingsPage extends StatefulWidget {
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  String _selectedLanguage = 'English';
+
+  void _showFeedbackDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Feedback'),
+          content: TextField(
+            decoration: InputDecoration(hintText: 'Enter your feedback here'),
+            maxLines: 5,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('CANCEL'),
+            ),
+            TextButton(
+              onPressed: () {
+                // TODO: send feedback to backend or do something with it
+                Navigator.pop(context);
+              },
+              child: Text('SEND'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,16 +51,44 @@ class SettingsPage extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               )),
         ),
-        body: ListTile(
-          title: const Text('Tiltle',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold)),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        )
+        body: Column(
+        children: [
+          ListTile(
+            title: Text('Language'),
+            trailing: DropdownButton<String>(
+              value: _selectedLanguage,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedLanguage = newValue!;
+                });
+              },
+              items: <String>[
+                'English',
+                'French'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('Help and Feedback'),
+            onTap: _showFeedbackDialog,
+          ),
+          Divider(),
+          ListTile(
+            title: Text('About Us'),
+            subtitle: Text('Version 1.0.0'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
         //  Text(
         //   "Archive",
@@ -35,6 +97,4 @@ class SettingsPage extends StatelessWidget {
         //       color: Colors.white,
         //       fontFamily: "Inter"),
         // ),
-        );
-  }
-}
+        

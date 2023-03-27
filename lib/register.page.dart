@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stage/login.page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -161,7 +162,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
+                            },
                             child: const Text("Annuler",
                                 style: TextStyle(color: Colors.black)))),
                     const SizedBox(
