@@ -9,22 +9,25 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _nom = TextEditingController();
-  final _prenom = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _ConfirmPW = TextEditingController();
+  final _nomController = TextEditingController();
+  final _prenomController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _ConfirmPWController = TextEditingController();
 
   Future Register() async {
     if (passwordConfirmed()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _email.text.trim(), password: _password.text.trim());
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
       Navigator.of(context).pushNamed("Auth");
     }
   }
 
+  
+
   bool passwordConfirmed() {
-    if (_password.text.trim() == _ConfirmPW.text.trim()) {
+    if (_passwordController.text.trim() == _ConfirmPWController.text.trim()) {
       return true;
     } else {
       return false;
@@ -34,11 +37,11 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void dispose() {
     super.dispose();
-    _nom.dispose();
-    _prenom.dispose();
-    _email.dispose();
-    _password.dispose();
-    _ConfirmPW.dispose();
+    _nomController.dispose();
+    _prenomController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _ConfirmPWController.dispose();
   }
 
   @override
@@ -60,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 278,
                       height: 48,
                       child: TextFormField(
-                          controller: _prenom,
+                          controller: _prenomController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -78,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 278,
                       height: 48,
                       child: TextFormField(
-                          controller: _nom,
+                          controller: _nomController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -96,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 278,
                       height: 48,
                       child: TextFormField(
-                          controller: _email,
+                          controller: _emailController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -111,10 +114,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 40,
                   ),
                   SizedBox(
-                      width: 278,
+                      width: 290,
                       height: 48,
                       child: TextFormField(
-                          controller: _password,
+                        obscureText: true,
+                          controller: _passwordController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -132,7 +136,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 278,
                       height: 48,
                       child: TextFormField(
-                          controller: _ConfirmPW,
+                        obscureText: true,
+                          controller: _ConfirmPWController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -146,8 +151,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(
                     height: 60,
                   ),
-                  Row(children: [
-                    Container(
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    SizedBox(
                         width: 116,
                         height: 48,
                         child: TextButton(
@@ -174,9 +179,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 20,
                     ),
                     SizedBox(
-                        width: 109,
+                        width: 104,
                         height: 48,
                         child: TextButton(
+                          
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
@@ -188,7 +194,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   const Color(0xFFC853FF)),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Register();
+                            },
                             child: const Text("OK",
                                 style: TextStyle(color: Colors.white)))),
                   ])

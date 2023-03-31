@@ -17,13 +17,14 @@ class ArchivePage extends StatelessWidget {
                       child: const Icon(
                         Icons.search,
                         size: 26.0,
+                        color: Colors.white,
                       ),
                     )),
                 Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: GestureDetector(
                       onTap: () {},
-                      child: const Icon(Icons.more_vert),
+                      child: const Icon(Icons.more_vert,color: Colors.white,),
                     )),
               ],
               title: const Text(
@@ -41,9 +42,7 @@ class ArchivePage extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold)),
           onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
+            
             Navigator.pop(context);
           },
         )
