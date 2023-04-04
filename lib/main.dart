@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stage/add.task.page.dart';
 import 'package:stage/auth.dart';
-import 'package:stage/firebase_options.dart';
-// import 'package:stage/home.page.dart';
-import 'package:stage/login.page.dart';
-import 'archive.page.dart';
-import 'register.page.dart';
-import 'todo.page.dart';
-// import 'Settings.page.dart';
-// import 'add.task.page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:stage/home.page.dart';
+import 'package:stage/todo.page.dart';
+
+import 'login.page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,11 +20,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home:  Auth(),
+      home: const HomePage(),
       debugShowCheckedModeBanner: false,
       routes: {
-        "Auth":(context) => const Auth(),
-        
+        "Auth": (context) => const Auth(),
       },
     );
   }

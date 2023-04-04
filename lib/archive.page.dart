@@ -5,9 +5,8 @@ class ArchivePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(86.0),
-          child: AppBar(
+      backgroundColor: const Color(0xFFECD2F8),
+        appBar:AppBar(
               backgroundColor: const Color(0xFFC853FF),
               actions: <Widget>[
                 Padding(
@@ -34,7 +33,7 @@ class ArchivePage extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               )),
-        ),
+        
         body: ListTile(
           title: const Text('Tiltle',
               style: TextStyle(
@@ -47,13 +46,6 @@ class ArchivePage extends StatelessWidget {
           },
         )
 
-        //  Text(
-        //   "Archive",
-        //   style: TextStyle(
-        //       fontWeight: FontWeight.bold,
-        //       color: Colors.white,
-        //       fontFamily: "Inter"),
-        // ),
         );
   }
 }

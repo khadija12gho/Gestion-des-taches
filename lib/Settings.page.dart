@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:stage/aboutus.page.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SettingsPageState createState() => _SettingsPageState();
 }
 
@@ -13,22 +17,21 @@ class _SettingsPageState extends State<SettingsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Feedback'),
-          content: TextField(
+          title: const Text('Feedback'),
+          content: const TextField(
             decoration: InputDecoration(hintText: 'Enter your feedback here'),
             maxLines: 5,
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('CANCEL'),
+              child: const Text('CANCEL'),
             ),
             TextButton(
               onPressed: () {
-                // TODO: send feedback to backend or do something with it
                 Navigator.pop(context);
               },
-              child: Text('SEND'),
+              child: const Text('SEND'),
             ),
           ],
         );
@@ -39,22 +42,21 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(86.0),
-          child: AppBar(
-              backgroundColor: const Color(0xFFC853FF),
-              title: const Text(
-                "Settings",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              )),
-        ),
-        body: Column(
+      backgroundColor: const Color(0xFFECD2F8),
+      appBar: AppBar(
+            backgroundColor: const Color(0xFFC853FF),
+            title: const Text(
+              "Settings",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            )),
+      
+      body: Column(
         children: [
           ListTile(
-            title: Text('Language'),
+            title: const Text('Language'),
             trailing: DropdownButton<String>(
               value: _selectedLanguage,
               onChanged: (String? newValue) {
@@ -62,10 +64,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   _selectedLanguage = newValue!;
                 });
               },
-              items: <String>[
-                'English',
-                'French'
-              ].map<DropdownMenuItem<String>>((String value) {
+              items: <String>['English', 'French']
+                  .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -73,15 +73,18 @@ class _SettingsPageState extends State<SettingsPage> {
               }).toList(),
             ),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text('Help and Feedback'),
+            title: const Text('Help and Feedback'),
             onTap: _showFeedbackDialog,
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             title: Text('About Us'),
-            subtitle: Text('Version 1.0.0'),
+            onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutUsPage()));
+                },
           ),
         ],
       ),
@@ -90,11 +93,5 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 
-        //  Text(
-        //   "Archive",
-        //   style: TextStyle(
-        //       fontWeight: FontWeight.bold,
-        //       color: Colors.white,
-        //       fontFamily: "Inter"),
-        // ),
+        
         

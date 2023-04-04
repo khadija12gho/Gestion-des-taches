@@ -5,6 +5,7 @@ import 'package:stage/login.page.dart';
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -13,18 +14,20 @@ class _RegisterPageState extends State<RegisterPage> {
   final _prenomController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  // ignore: non_constant_identifier_names
   final _ConfirmPWController = TextEditingController();
 
+  // ignore: non_constant_identifier_names
   Future Register() async {
     if (passwordConfirmed()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
-      Navigator.of(context).pushNamed("Auth");
     }
-  }
 
-  
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pushNamed('Auth');
+  }
 
   bool passwordConfirmed() {
     if (_passwordController.text.trim() == _ConfirmPWController.text.trim()) {
@@ -54,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
             width: 329.0,
             height: 648.0,
             color: const Color(0xFFE3B2FB),
-            padding: const EdgeInsets.all(50),
+            padding: const EdgeInsets.only(left: 20,right: 20,top: 60),
             margin: const EdgeInsets.all(50),
             child: Form(
               child: Column(
@@ -117,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 290,
                       height: 48,
                       child: TextFormField(
-                        obscureText: true,
+                          obscureText: true,
                           controller: _passwordController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
@@ -136,7 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 278,
                       height: 48,
                       child: TextFormField(
-                        obscureText: true,
+                          obscureText: true,
                           controller: _ConfirmPWController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
@@ -153,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     SizedBox(
-                        width: 116,
+                        width: 100,
                         height: 48,
                         child: TextButton(
                             style: ButtonStyle(
@@ -169,20 +172,21 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             onPressed: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                              );
                             },
                             child: const Text("Annuler",
                                 style: TextStyle(color: Colors.black)))),
                     const SizedBox(
-                      width: 20,
+                      width: 60,
                     ),
                     SizedBox(
-                        width: 104,
+                        width: 84,
                         height: 48,
                         child: TextButton(
-                          
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
